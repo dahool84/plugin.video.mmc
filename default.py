@@ -152,14 +152,15 @@ def Live():
         addDir('Radio','',11,'http://www.marketingmagazin.si/images/custom//radio.jpg')
 
 def TV():
-        addFlashLive('TV Slovenija 1','slo1-low','','http://img.rtvslo.si/upload/staticna/tvslo1-logo_show.gif')
-        addFlashLive('TV Slovenija 2','slo2-low','','http://img.rtvslo.si/upload/staticna/tvslo2-logo_show.gif')
-        addFlashLive('TV Slovenija 3','slo3-low','','http://img.rtvslo.si/upload/staticna/tvslo3-logo_show.gif')
-        addFlashLive('TV Koper-Capodistria','tvkp-low','','')
-        addFlashLive('TV Maribor','tvmb-low','','')
+        addFlashLive('TV Slovenija 1','slo1','','http://img.rtvslo.si/upload/staticna/tvslo1-logo_show.gif')
+        addFlashLive('TV Slovenija 2','slo2','','http://img.rtvslo.si/upload/staticna/tvslo2-logo_show.gif')
+        addFlashLive('TV Slovenija 3','slo3','','http://img.rtvslo.si/upload/staticna/tvslo3-logo_show.gif')
+        addFlashLive('TV Koper-Capodistria','tvkp','','')
+        addFlashLive('TV Maribor','tvmb','','')
+        addFlashLive('MMC','mmctv','','')
 
 def Radio():
-#        addLink('Prvi Program','mms://helix10.rtvslo.si/wmtencoder/ra1.wma','http://img.rtvslo.si/_up/upload/2010/11/16/64743978_radioprvi_show.gif','')
+#        addLink('Prvi Program','mms://helix10.rtvslo.si/wmtencoder/ra.a1.wma','http://img.rtvslo.si/_up/upload/2010/11/16/64743978_radioprvi_show.gif','')
 #        addLink('Val 202','mms://helix10.rtvslo.si/wmtencoder/val202.wma','http://img.rtvslo.si/upload/staticna/val202.png','')
 #        addLink('Ars','mms://helix10.rtvslo.si/wmtencoder/ars.wma','http://img.rtvslo.si/upload/staticna/ars_show.gif','')
 #        addLink('Maribor','mms://helix10.rtvslo.si/wmtencoder/mb1.wma','','')
@@ -167,15 +168,14 @@ def Radio():
 #        addLink('Koper','mms://helix10.rtvslo.si/wmtencoder/kp.wma','','')
 #        addLink('Capodistria','mms://helix10.rtvslo.si/wmtencoder/capo.wma','','')
 #        addLink('MMR','mms://helix10.rtvslo.si/wmtencoder/mmr.wma','','')
-        addFlashLive('Prvi Program','ra1-low','','')
-        addFlashLive('Val 202','val202-low','','')
-        addFlashLive('Ars','ars-low','','')
-        addFlashLive('Rsi','rsi-low','','')
-        addFlashLive('Maribor','rmb-low','','')
-        addFlashLive('Koper','rakp-low','','')
-        addFlashLive('Capodistria','slo1-low','','')
-        addFlashLive('MMR','slo1-low','','')
-
+        addFlashLive('Prvi Program','ra1','Prvi Program','http://img.rtvslo.si/_up/upload/2010/11/16/64743978_radioprvi_show.gif')
+        addFlashLive('Val 202','val202','Val 202','http://img.rtvslo.si/upload/staticna/val202.png')
+        addFlashLive('Ars','ars','Ars','http://img.rtvslo.si/upload/staticna/ars_show.gif')
+        addFlashLive('Radio Si International','rsi','Radio Si International','')
+        addFlashLive('Radio Maribor','rmb','Maribor','')
+        addFlashLive('Radio Koper','rakp','Koper','')
+        addFlashLive('Radio Capodistria','capo','Capodistria','')
+        addFlashLive('MMR','mmr','MMR','')
 
 def OddajeZvrst():
         addDir('Vse','http://tvslo.si/?c_mod=play&op=oddaje&func=oddaje&group=all&page=0',13,'http://img.rtvslo.si/_static/img/play/plr_vse.gif')
@@ -584,14 +584,14 @@ def addFlash(name,playpath,plot,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="http://www.rtvslo.si/podcasts/mmc.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot":  plot} )
-        finalUrl = videoUrl + ' app=vod  playpath='+playpath+' swfUrl=http://tvslo.si/media_player.swf'
+        finalUrl = videoUrl + ' app=simplevideostreaming playpath='+playpath+' swfUrl='+swfUrl
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=finalUrl,listitem=liz)
 
 def addFlashLive(name,playpath,plot,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="http://www.rtvslo.si/podcasts/mmc.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot":  plot} )
-        finalUrl = 'rtmp://fms.rtvslo.si/live/ app=live  playpath='+playpath+' swfUrl=http://tvslo.si/media_player.swf live=True'
+        finalUrl = videoUrl + '/live/ app=live  playpath='+playpath+' swfUrl='+swfUrl+' live=True'
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=finalUrl,listitem=liz)
         print finalUrl
 #        ok=xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(finalUrl, listitem=liz)
@@ -628,7 +628,9 @@ img=None
 date=''
 ava_id=str()
 media=None
-videoUrl = "rtmp://fms.rtvslo.si/vod/"
+videoUrl = "rtmp://stream.rtvslo.si/simplevideostreaming"
+swfUrl = 'http://tvslo.si/media_jwplayer_5.7.swf'
+
 audiopng = 'http://img.rtvslo.si/modules/content/videopodcast/img/podcast.gif'
 housepng = "http://img.rtvslo.si/modules/content/kazalo/icons/spletnastran-icon.gif"
 icon = ''
