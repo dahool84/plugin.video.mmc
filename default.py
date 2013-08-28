@@ -584,7 +584,7 @@ def addFlash(name,playpath,plot,iconimage):
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="http://www.rtvslo.si/podcasts/mmc.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot":  plot} )
-        finalUrl = videoUrl + ' app=simplevideostreaming playpath='+playpath+' swfUrl='+swfUrl
+        finalUrl = videoUrl + ' app=simplevideostreaming2 playpath='+playpath+' swfUrl='+swfUrl
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=finalUrl,listitem=liz)
 
 def addFlashLive(name,playpath,plot,iconimage):
